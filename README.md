@@ -3,7 +3,7 @@
 ## System Components
 
 ### 1. Data Generator (`data_generator.py`)
-This component simulates the behavior of users on an e-commerce platform by generating events such as product views, adding items to cart, and purchases. It creates CSV files with this simulated data at regular intervals.
+This component simulates the behavior of users on an e-commerce platform by generating events such as product views, adding items to cart, and purchases. It creates CSV files with this simulated data at regular intervals of 5 seconds.
 
 Key features:
 - Generates realistic user IDs, product information, and timestamps
@@ -46,31 +46,5 @@ Key features:
         │                                                                        │
         │                                                                        │
         └────────────────────────────────────────────────────────────────────────┘
-                          Data Analysis & Visualization (Future)
+                          Data Analysis & Visualization
 ```
-
-## Technical Design Decisions
-
-1. **Why CSV files?** 
-   - Simple to generate and inspect
-   - Structured format that's easy to process
-   - Realistic simulation of real-world data files
-
-2. **Why Spark Structured Streaming?**
-   - Handles high-volume data streams efficiently
-   - Provides robust error handling and recovery
-   - Offers powerful data transformation capabilities
-   - Industry-standard tool for stream processing
-
-3. **Why PostgreSQL?**
-   - Reliable and well-established relational database
-   - Strong support for complex queries and analytics
-   - Scalable for increasing data volumes
-   - Easy integration with BI and analytics tools
-
-## Potential Enhancements
-
-- Add real-time dashboards using tools like Grafana
-- Implement data quality checks and alerts
-- Scale the system with Kafka for higher throughput
-- Add machine learning models for real-time recommendations
