@@ -2,7 +2,7 @@ CREATE DATABASE ecommerce_db;
 CREATE TABLE IF NOT EXISTS user_events (
     event_id SERIAL PRIMARY KEY,
     user_id VARCHAR(50) NOT NULL,
-    event_type VARCHAR(20) NOT NULL,  -- 'view', 'purchase', etc.
+    event_type VARCHAR(20) NOT NULL,
     product_id VARCHAR(50) NOT NULL,
     product_name VARCHAR(200) NOT NULL,
     product_category VARCHAR(100) NOT NULL,
