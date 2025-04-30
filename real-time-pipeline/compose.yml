@@ -23,6 +23,11 @@ services:
       - ./scripts:/app/scripts
       - ./data:/app/data
       - ./config:/app/config
+      - ./spark_streaming_DEMO.py:/app/spark_streaming_DEMO.py
+    ports:
+      - "4040:4040"
+      - "8080:8080"
+      - "8081:8081"
     networks:
       - app-network
     command: tail -f /dev/null
