@@ -1,3 +1,4 @@
+# The docker compose file for the data engineering project.
 services:
   postgres:
     image: postgres:13
@@ -14,6 +15,7 @@ services:
     networks:
       - app-network
 
+# spark streaming
   spark:
     image: bitnami/spark:3.5    
     container_name: spark_streaming
@@ -23,7 +25,7 @@ services:
       - ./scripts:/app/scripts
       - ./data:/app/data
       - ./config:/app/config
-      - ./spark_streaming_DEMO.py:/app/spark_streaming_DEMO.py
+      - ./spark_streaming_DEMO.py:/app/spark_streaming_to_postgres.py
     ports:
       - "4040:4040"
       - "8080:8080"
