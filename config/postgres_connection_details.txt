@@ -1,6 +1,6 @@
 host=postgres
 port=5432
-database=ecommerce_db
+database=Amazon_inventory
 user=postgres
 password=Eliasdaniel7!
 driver=org.postgresql.Driver
