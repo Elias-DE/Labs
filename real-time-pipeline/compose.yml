@@ -25,7 +25,7 @@ services:
       - ./scripts:/app/scripts
       - ./data:/app/data
       - ./config:/app/config
-      - ./spark_streaming_DEMO.py:/app/spark_streaming_to_postgres.py
+      - ./spark_streaming_to_postgres.py:/app/spark_streaming_to_postgres.py
     ports:
       - "4040:4040"
       - "8080:8080"
