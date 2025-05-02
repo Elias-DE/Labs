@@ -1,6 +1,6 @@
-# Spark Structured Streaming Query Progress Report
+# Performance Metrics
 
-This document summarizes the performance metrics of a Spark Structured Streaming batch job.
+This section provides an overview of the performance metrics collected during the Spark Structured Streaming and PostgreSQL integration. The metrics include basic metadata, input and processing metrics, and overall performance metrics.
 
 ---
 
@@ -34,13 +34,6 @@ This document summarizes the performance metrics of a Spark Structured Streaming
 | triggerExecution   | 2267          |
 | walCommit          | 107           |
 
----
-
-## State Operators
-
-- No state operators were used.
-
----
 
 ## Sources
 
@@ -61,7 +54,3 @@ This document summarizes the performance metrics of a Spark Structured Streaming
 
 - **Sink Description**: `org.apache.spark.sql.execution.streaming.ConsoleTable$@29df96f3`
 - **Number of Output Rows**: `125`
-
----
-
-*Generated automatically from streaming metrics.*
