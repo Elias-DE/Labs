@@ -134,22 +134,43 @@ import logging
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("KafkaToPostgres")
 
-schema = StructType()     .add("patient_id", IntegerType())     .add("timestamp", TimestampType())     .add("heart_rate", IntegerType())
+schema = StructType()
+          .add("patient_id", IntegerType())
+          .add("timestamp", TimestampType())
+          .add("heart_rate", IntegerType())
 
 spark = SparkSession.builder.appName("KafkaToPostgres").getOrCreate()
 
-df = spark.readStream     .format("kafka")     .option("kafka.bootstrap.servers", "localhost:9092")     .option("subscribe", "heartbeat-topic")     .option("startingOffsets", "latest")     .load()
+df = spark.readStream.format("kafka")
+     .option("kafka.bootstrap.servers", "localhost:9092")
+     .option("subscribe", "heartbeat-topic")
+     .option("startingOffsets", "latest")
+     .load()
 
-parsed_df = df.selectExpr("CAST(value AS STRING)")     .select(from_json(col("value"), schema).alias("data"))     .select("data.*")     .dropna()
+parsed_df = df.selectExpr("CAST(value AS STRING)")
+        .select(from_json(col("value"), schema).alias("data"))
+        .select("data.*")
+        .dropna()
 
 def write_batch(batch_df, batch_id):
     try:
-        batch_df.write             .format("jdbc")             .option("url", "jdbc:postgresql://localhost:5432/heartbeat_db")             .option("dbtable", "heartbeats")             .option("user", "postgres")             .option("password", "postgres")             .option("driver", "org.postgresql.Driver")             .mode("append")             .save()
+        batch_df.write.format("jdbc")
+        .option("url", "jdbc:postgresql://localhost:5432/heartbeat_db")
+        .option("dbtable", "heartbeats")
+        .option("user", "postgres")
+        .option("password", "postgres")
+        .option("driver", "org.postgresql.Driver")
+        .mode("append")
+        .save()
         log.info(f"Batch {batch_id} written to PostgreSQL.")
     except Exception as e:
         log.error(f"Error writing batch {batch_id}: {e}")
 
-parsed_df.writeStream     .foreachBatch(write_batch)     .option("checkpointLocation", "/tmp/spark_checkpoint")     .start()     .awaitTermination()
+parsed_df.writeStream
+  .foreachBatch(write_batch)
+  .option("checkpointLocation", "/tmp/spark_checkpoint")
+  .start()
+  .awaitTermination()
 ```
 
 Run the script:
