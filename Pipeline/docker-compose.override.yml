@@ -1,0 +1,47 @@
+services:
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: staging_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - airflow-flight-project_bf29bc_airflow
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./sql/postgres:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - airflow-flight-project_bf29bc_airflow
+
+
+volumes:
+  mysql_data:
+  postgres_data:
+
+networks:
+  airflow-flight-project_bf29bc_airflow:
+    external: true
